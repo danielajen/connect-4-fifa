@@ -44,7 +44,13 @@ namespace connect_4_fifa
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            for (int col = 0; col < 7; col++)
+            {
+                for (int row = 0; row < 6; row++)
+                {
+                    this.Controls["p" + col + row].BackgroundImageLayout = ImageLayout.Stretch;
+                }
+            }
         }
 
         private void click(object sender, EventArgs e)
@@ -66,7 +72,7 @@ namespace connect_4_fifa
                 // Update the board 
                 board[namenum, rowspot] = currentPlayer;
 
-                
+
                 UpdatePictureBox();
 
                 // messi vs ronaldo
@@ -77,14 +83,6 @@ namespace connect_4_fifa
                 {
                     string winner = GetPlayerName(currentPlayer);
                     MessageBox.Show(winner + " wins!");
-                    ResetBoard();
-                    return;
-                }
-
-                // Check for a draw
-                if (IsBoardFull())
-                {
-                    MessageBox.Show(" draw!");
                     ResetBoard();
                     return;
                 }
@@ -180,17 +178,7 @@ namespace connect_4_fifa
                    CheckDiagonalDown(col, row);
         }
 
-        private bool IsBoardFull()
-        {
-            for (int col = 0; col < 7; col++)
-            {
-                if (board[col, 5] == 0)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+
 
         private void ResetBoard()
         {
