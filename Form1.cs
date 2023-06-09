@@ -12,6 +12,8 @@ namespace connect_4_fifa
 {
     public partial class Form1 : Form
     {
+
+        string messi, ronaldo;
         int[,] board =
         {
             {0,0,0,0,0,0 },
@@ -23,9 +25,15 @@ namespace connect_4_fifa
             {0,0,0,0,0,0 },
         };
         int currentPlayer = 1;
-        public Form1()
+        int total = 0;
+        public Form1( string x, string y)
         {
             InitializeComponent();
+            messi = x;
+            ronaldo = y;
+            label3.Text = messi;
+            label1.Text = ronaldo;
+            MessageBox.Show("Messi first");
         }
 
         private void enter(object sender, EventArgs e)
@@ -44,6 +52,7 @@ namespace connect_4_fifa
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             for (int col = 0; col < 7; col++)
             {
                 for (int row = 0; row < 6; row++)
@@ -66,6 +75,8 @@ namespace connect_4_fifa
                 // Current player Messi
                 Image playerImage = GetPlayerImage(currentPlayer);
 
+                // update total 
+                total++;
                 // Set the backg
                 this.Controls["p" + namenum + rowspot].BackgroundImage = playerImage;
 
@@ -83,6 +94,13 @@ namespace connect_4_fifa
                 {
                     string winner = GetPlayerName(currentPlayer);
                     MessageBox.Show(winner + " wins!");
+                    ResetBoard();
+                    return;
+                }
+                // Draw
+                if (total == 7 * 6)
+                {
+                    MessageBox.Show("It's a draw!");
                     ResetBoard();
                     return;
                 }
@@ -227,13 +245,15 @@ namespace connect_4_fifa
         private Image GetPlayerImage(int player)
         {
             Image playerImage = null; //default
-
+            
             if (player == 1)
             {
+                MessageBox.Show("You clicked Messi, now it's Ronaldos Turn");
                 playerImage = Properties.Resources.messi;
             }
             else if (player == 2)
             {
+                MessageBox.Show("You clicked ronaldo, now Messi the goat turn");
                 playerImage = Properties.Resources.ronado;
             }
 
@@ -242,6 +262,7 @@ namespace connect_4_fifa
 
         private int GetNextPlayer(int currentPlayer)
         {
+            
             int nextPlayer = 1;
 
             if (currentPlayer == 1)
